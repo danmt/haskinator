@@ -1,9 +1,11 @@
 module Haskinator(main) where
+import Oraculo
 import System.Exit
 import System.IO
+import Data.Map as Map
 
-menu :: IO()
-menu = do
+menu :: Maybe Oraculo -> IO()
+menu oraculo = do
   putStrLn "Introduzca una opción."
   putStrLn "1) Crear un Oráculo nuevo."
   putStrLn "2) Predecir."
@@ -14,34 +16,50 @@ menu = do
   opcion <- getLine
   oraculoNuevo <- case opcion of
     "1" -> crearNuevoOraculo
-    "2" -> predecir
-    "3" -> persistir
+    -- "2" -> predecir
+    "3" -> persistir oraculo
     "4" -> cargar
-    "5" -> consultarPreguntaCritica
+    -- "5" -> consultarPreguntaCritica
     "6" -> exitSuccess
     _ -> do
-      putStrLn "Opción incorrecta."
-  menu
+      putStrLn "Opción inválida."
+      return oraculo 
+  menu oraculoNuevo
 
-crearNuevoOraculo :: IO()
+crearNuevoOraculo :: IO (Maybe Oraculo)
 crearNuevoOraculo = do
-  putStrLn "Introduzca una predicción."
+  putStrLn "Introduce una predicción:"
+  prediccion <- getLine
+  return $ Just $ crearOraculo prediccion
 
+persistir :: Maybe Oraculo -> IO (Maybe Oraculo)
+persistir (Just oraculo) = do
+  putStrLn "Introduce el nombre del archivo."
+  nombreArchivo <- getLine
+  writeFile nombreArchivo (show oraculo)
+  return $ Just oraculo
+persistir Nothing = do
+  putStrLn "Oráculo inválido."
+  return Nothing
+
+cargar :: IO (Maybe Oraculo)
+cargar = do
+    putStrLn "Introduce el archivo a leer."
+    nombreArchivo <- getLine
+    s <- readFile nombreArchivo
+    return $ Just $ oraculo s
+  where
+    oraculo s = read s :: Oraculo
+
+{- 
 predecir :: IO()
 predecir = do
   putStrLn "Predecir"
 
-persistir :: IO()
-persistir = do
-  putStrLn "Introduzca el archivo para guardar el oráculo."
-
-cargar :: IO()
-cargar = do
-  putStrLn "Introduzca el archivo a leer."
-
 consultarPreguntaCritica :: IO()
 consultarPreguntaCritica = do
-  putStrLn "Consultar pregunta crítica."
+  putStrLn "Consultar pregunta crítica." 
+-}
 
 main::IO()
-main = menu
+main = menu Nothing

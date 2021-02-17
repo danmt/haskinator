@@ -1,5 +1,5 @@
 module Oraculo where
-import Data.Map
+import Data.Map as Map
 
 data Oraculo = Pregunta String Opciones | Prediccion String 
                 deriving(Show,Read)
@@ -30,4 +30,4 @@ respuesta _ _ = error "Pregunta inválida."
 
 ramificar :: [String] -> [Oraculo] -> String -> Oraculo
 ramificar opciones oraculos pregunta =
-    Pregunta pregunta (fromList (zip opciones oraculos))
+  Pregunta pregunta $ fromList $ zip opciones oraculos
