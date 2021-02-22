@@ -1,1 +1,3 @@
 Haskinator
+*.hi
+*.o

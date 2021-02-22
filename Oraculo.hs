@@ -1,7 +1,16 @@
-module Oraculo where
+module Oraculo(
+  Oraculo (..), 
+  Opciones,
+  crearOraculo, 
+  prediccion, 
+  pregunta, 
+  opciones, 
+  respuesta,
+  ramificar
+) where
 import Data.Map as Map
 
-data Oraculo = Pregunta String Opciones | Prediccion String 
+data Oraculo = Prediccion String | Pregunta String Opciones
                 deriving(Show,Read)
 
 type Opciones = Map String Oraculo

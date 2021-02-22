@@ -1,0 +1,1 @@
+Pregunta "que tipo de pokemon es" (fromList [("agua",Pregunta "que evolucion es" (fromList [("1",Prediccion "squirtle"),("3",Prediccion "blastoise")])),("electricidad",Prediccion "pikachu"),("fuego",Pregunta "puede volar?" (fromList [("no",Prediccion "charmander"),("si",Prediccion "charizard")]))])
