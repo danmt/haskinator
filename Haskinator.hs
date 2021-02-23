@@ -72,7 +72,12 @@ cargar = catch exito fallo
   recibe el oraculo actual y realiza la prediccion sobre el.
 -}
 predecir :: Maybe Oraculo -> IO (Maybe Oraculo)
-predecir oraculo = realizarPrediccion oraculo
+predecir (Just oraculo) = do
+  resultado <- realizarPrediccion oraculo
+  return $ Just $ resultado
+predecir Nothing = do
+  imprimirOraculoErrado
+  return Nothing
 
 {- 
 consultarPreguntaCritica :: IO()
