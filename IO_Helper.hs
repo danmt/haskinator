@@ -11,7 +11,8 @@ module IO_Helper(
   imprimirPrediccionExitosa,
   imprimirArchivoErrado,
   imprimirOpcionErrada,
-  imprimirOraculoErrado
+  imprimirOraculoErrado,
+  prompt
 ) where
 import Oraculo
 import System.IO

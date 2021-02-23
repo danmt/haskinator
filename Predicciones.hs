@@ -19,7 +19,7 @@ prediccionFallida oraculo = do
 
 pedirRespuestaParaPrediccion :: Oraculo -> IO Oraculo
 pedirRespuestaParaPrediccion oraculo = do
-  opcion <- getLine
+  opcion <- prompt
   case opcion of
     "Si" -> do
       imprimirPrediccionExitosa
@@ -54,7 +54,7 @@ preguntaAcertada oraculoActual opcionEscogida = do
 
 pedirRespuestaParaPregunta :: Oraculo -> IO  Oraculo
 pedirRespuestaParaPregunta oraculo = do
-  opcion <- getLine
+  opcion <- prompt
   case opcion of
     "ninguna" -> do
       preguntaFallida oraculo
