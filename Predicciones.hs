@@ -59,9 +59,9 @@ pedirRespuestaParaPregunta oraculo = do
     "ninguna" -> do
       preguntaFallida oraculo
     opcionEscogida -> do
-      case (validarOpcion oraculo opcionEscogida) of
-        True -> preguntaAcertada oraculo opcionEscogida
-        False -> do
+      if (validarOpcion oraculo opcionEscogida)
+        then preguntaAcertada oraculo opcionEscogida
+        else do
           imprimirOpcionErrada
           manejarPregunta oraculo
 
