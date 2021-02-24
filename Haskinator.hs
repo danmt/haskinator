@@ -1,3 +1,9 @@
+{-  
+  Autores:
+  - Denylson Romero 13-11270
+  - Daniel Marin    10-10419
+-}
+
 module Haskinator(main) where
 import Oraculo
 import IO_Helper
@@ -80,15 +86,15 @@ predecir Nothing = do
   return Nothing
 
 {- 
-  consultarPreguntaCritica/0
+  consultarPreguntaCritica/1
   recibe el oraculo actual e indica la pregunta que decide entre
   dos predicciones ingresadas por el usuario, junto a las respuestas 
   de esas dos predicciones
 -}
 consultarPreguntaCritica :: Maybe Oraculo -> IO (Maybe Oraculo)
 consultarPreguntaCritica (Just o) = do
-  p1 <- solicitarPrediccionCri1
-  p2 <- solicitarPrediccionCri2
+  p1 <- solicitarPrediccionCritica1
+  p2 <- solicitarPrediccionCritica2
   if p1==p2 
     then do
       imprimirPrediccionRepetida

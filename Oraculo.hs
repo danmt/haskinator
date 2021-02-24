@@ -1,3 +1,9 @@
+{-  
+  Autores:
+  - Denylson Romero 13-11270
+  - Daniel Marin    10-10419
+-}
+
 module Oraculo(
   Oraculo (..), 
   Opciones,
@@ -11,7 +17,7 @@ module Oraculo(
 import Data.Map as Map
 
 data Oraculo = Prediccion String | Pregunta String Opciones
-                deriving(Show,Read, Eq)
+                deriving(Show,Read,Eq)
 
 type Opciones = Map String Oraculo
 

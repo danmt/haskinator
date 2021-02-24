@@ -24,9 +24,38 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 
 ## Construido con 🛠️
 
-* [Haskell](https://www.haskell.org/) - El lenguaje usado
+- [Haskell](https://www.haskell.org/) - El lenguaje usado
+
+## Diseño 🧠
+
+El programa fue diseñado teniendo en cuenta las prácticas de la programación funcional. La prioridad fue hacer un programa declarativo que con pura composición de funciones fuese capaz de realizar las predicciones.
+
+Cuenta con 4 módulos:
+
+- Haskinator.
+- Oraculo.
+- Predicciones.
+- IO Helper.
+
+### Haskinator
+
+Es el archivo principal del programa, cuenta con un main bastante simple que aplica la función menu que la podriamos ver como un while(condicion). Donde la condicion es que el valor ingresado por el usuario sea diferente a la opcion de salida (6). El metodo menu, por medio de un _case of_ aplica la función correspondiente a la opcion provista por el usuario (crear, cargar, predecir, etc...).
+
+### Oraculo
+
+Es el módulo encargado de definir los tipos de Oraculos, además de ofrecer una serie de metodos para facilitar su manipulación.
+
+### Predicciones
+
+El módulo de predicciones es un modulo adicional, creado con la intencion de encapsular todos los metodos relacionados a la predicción. Realizar una predicción es algo complejo y que no tiene relacion directa con el main, por lo que nos parecio una brillante idea mover toda la _logica de negocio_ a un archivo separado.
+
+### IO Helper
+
+Para limitar las interacciones con el mecanismo IO de Haskell, creamos un modulo responsable de hacer todas los read/write del sistema, de esta manera pudimos tener una implementacion mas limpia y clara en el resto de los modulos.
+
+Cabe destacar que cada función cuenta con un encabezado de comentario que indica la aridad de la función y una breve descripción de su responsabilidad.
 
 ## Autores ✒️
 
-* **Denylson Romero** - [DenylR](https://github.com/DenylR)
-* **Daniel Marin** - [danmt](https://github.com/danmt)
+- **Denylson Romero 13-11270** - [DenylR](https://github.com/DenylR)
+- **Daniel Marin 10-10419** - [danmt](https://github.com/danmt)
