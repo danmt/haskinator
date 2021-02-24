@@ -11,7 +11,7 @@ module Oraculo(
 import Data.Map as Map
 
 data Oraculo = Prediccion String | Pregunta String Opciones
-                deriving(Show,Read)
+                deriving(Show,Read, Eq)
 
 type Opciones = Map String Oraculo
 

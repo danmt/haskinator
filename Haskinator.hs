@@ -16,7 +16,7 @@ menu oraculo = do
     "2" -> predecir $ oraculo
     "3" -> persistir $ oraculo
     "4" -> cargar
-    -- "5" -> consultarPreguntaCritica
+    "5" -> consultarPreguntaCritica $ oraculo
     "6" -> exitSuccess
     _   -> do
       imprimirOpcionErrada
@@ -80,9 +80,25 @@ predecir Nothing = do
   return Nothing
 
 {- 
-consultarPreguntaCritica :: IO()
-consultarPreguntaCritica = do 
+  consultarPreguntaCritica/0
+  recibe el oraculo actual e indica la pregunta que decide entre
+  dos predicciones ingresadas por el usuario, junto a las respuestas 
+  de esas dos predicciones
 -}
+consultarPreguntaCritica :: Maybe Oraculo -> IO (Maybe Oraculo)
+consultarPreguntaCritica (Just o) = do
+  p1 <- solicitarPrediccionCri1
+  p2 <- solicitarPrediccionCri2
+  if p1==p2 
+    then do
+      imprimirPrediccionRepetida
+      return $ Just o
+  else do
+    oraculo <- buscarLCA p1 p2 o
+    return $ Just oraculo
+consultarPreguntaCritica Nothing = do
+  imprimirOraculoErrado
+  return Nothing
 
 main::IO()
 main = menu Nothing
