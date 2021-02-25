@@ -24,7 +24,8 @@ module IO_Helper(
   prediccionCriticaInvalida2,
   imprimirPreguntaCritErr,
   imprimirPreguntaCritica,
-  prompt
+  promptUsuario,
+  haskinatorDice
 ) where
 import Oraculo
 import System.IO
@@ -44,7 +45,7 @@ solicitarOpcion = do
   putStrLn "4) Cargar."
   putStrLn "5) Consultar pregunta crucial."
   putStrLn "6) Salir."
-  prompt
+  promptUsuario
 
 {- 
   solicitarArchivo/0
@@ -52,8 +53,8 @@ solicitarOpcion = do
 -}
 solicitarArchivo :: IO String
 solicitarArchivo = do
-  putStrLn $ "\n" ++ "Introduce el nombre del archivo."
-  prompt
+  haskinatorDice $ "Introduce el nombre del archivo."
+  promptUsuario
 
 {- 
   solicitarNuevaPrediccion/0
@@ -61,8 +62,8 @@ solicitarArchivo = do
 -}
 solicitarNuevaPrediccion :: IO String
 solicitarNuevaPrediccion = do
-  putStrLn $ "\n" ++ "Introduce una predicción."
-  prompt
+  haskinatorDice $ "Introduce una predicción."
+  promptUsuario
 
 {- 
   solicitarPrediccion/0
@@ -70,8 +71,8 @@ solicitarNuevaPrediccion = do
 -}
 solicitarPrediccion :: IO String
 solicitarPrediccion = do
-  putStrLn $ "\n" ++ "He fallado! Cuál era la respuesta correcta?"
-  prompt
+  haskinatorDice $ "He fallado! Cuál era la respuesta correcta?"
+  promptUsuario
 
 {- 
   solicitarRespuesta/1
@@ -79,8 +80,8 @@ solicitarPrediccion = do
 -}
 solicitarRespuesta :: Oraculo -> IO String
 solicitarRespuesta (Pregunta preg opcs) = do
-  putStrLn $ "\n" ++ pregunta (Pregunta preg opcs)
-  prompt
+  haskinatorDice $ pregunta (Pregunta preg opcs)
+  promptUsuario
 
 {- 
   solicitarNuevaPregunta/1
@@ -89,8 +90,8 @@ solicitarRespuesta (Pregunta preg opcs) = do
 -}
 solicitarNuevaPregunta :: String -> IO String
 solicitarNuevaPregunta prediccionCorrecta = do
-  putStrLn $ "\n" ++ "Que pregunta distingue a " ++ prediccionCorrecta ++ " de las otras opciones?"
-  prompt
+  haskinatorDice $ "Que pregunta distingue a " ++ prediccionCorrecta ++ " de las otras opciones?"
+  promptUsuario
 
 {- 
   solicitarRespuestaCorrecta/2
@@ -99,8 +100,8 @@ solicitarNuevaPregunta prediccionCorrecta = do
 -}
 solicitarRespuestaCorrecta :: String -> String -> IO String
 solicitarRespuestaCorrecta preg pred = do
-  putStrLn $ "\n" ++ "Cuál es la respuesta a \"" ++ preg ++ "\" para " ++ pred ++ "?"
-  prompt
+  haskinatorDice $ "Cuál es la respuesta a \"" ++ preg ++ "\" para " ++ pred ++ "?"
+  promptUsuario
 
 {- 
   imprimirPrediccion/1
@@ -108,7 +109,7 @@ solicitarRespuestaCorrecta preg pred = do
 -}
 imprimirPrediccion :: Oraculo -> IO ()
 imprimirPrediccion oraculo = do
-  putStrLn $ "\n" ++ "Predicción: " ++ (prediccion oraculo) ++ " (Si/No)"
+  haskinatorDice $ "Predicción: " ++ (prediccion oraculo) ++ "\n(Si/No)"
 
 {- 
   imprimirPrediccion/1
@@ -116,7 +117,7 @@ imprimirPrediccion oraculo = do
 -}
 imprimirPregunta :: Oraculo -> IO ()
 imprimirPregunta oraculo = do
-  putStrLn $ "\n" ++ pregunta oraculo
+  haskinatorDice $ pregunta oraculo
   putStrLn $ Prelude.foldl concatenar "" (Prelude.map fst $ Map.toList $ opciones oraculo)
   where 
     concatenar ""        opcion = opcion
@@ -129,8 +130,8 @@ imprimirPregunta oraculo = do
 -}
 solicitarPrediccionCritica :: String -> IO String
 solicitarPrediccionCritica nroPrediccion = do
-  putStrLn $ "\n" ++ "Ingrese la " ++ nroPrediccion ++ " predicción a consultar:"
-  prompt
+  haskinatorDice $ "Ingrese la " ++ nroPrediccion ++ " predicción a consultar:"
+  promptUsuario
 
 {- 
   prediccionCriticaInvalida/1
@@ -163,7 +164,7 @@ imprimirPrediccionRepetida = do
 -}
 imprimirPreguntaCritErr :: IO ()
 imprimirPreguntaCritErr = do
-  putStrLn "No hay pregunta que diferencie ambas predicciones."
+  haskinatorDice "No hay pregunta que diferencie ambas predicciones."
 
 {- 
   imprimirPreguntaCritica/5
@@ -229,11 +230,19 @@ imprimirExito mensaje = do putStrLn $ prefix ++ mensaje ++ suffix
     suffix = "\ESC[0m"
 
 {- 
-  prompt/0
+  promptUsuario/0
   Imprime un mensaje de espera de input por el usuario
 -}
-prompt :: IO String
-prompt = do
-  putStr "R: "
+promptUsuario :: IO String
+promptUsuario = do
+  putStr "Usuario: "
   hFlush stdout
   getLine
+
+{- 
+  haskinatorDice/1
+  Recibe un string y lo imprime en pantalla como Haskinator
+-}
+haskinatorDice :: String -> IO ()
+haskinatorDice mensaje = do 
+  putStrLn $ "\n" ++ "Haskinator: " ++ mensaje
