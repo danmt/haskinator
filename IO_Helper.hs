@@ -141,8 +141,8 @@ prediccionCriticaInvalida prediccion = do
   imprimirError $ "La prediccion \"" ++ prediccion ++"\" no es una prediccion correcta."
 
 {- 
-  prediccionCriticaInvalida2/1
-  Recibe dos prediccion e imprime un mensaje indicando que ambas
+  prediccionCriticaInvalida2/2
+  Recibe dos predicciones e imprime un mensaje indicando que ambas
   predicciones son incorrectas.
 -}
 prediccionCriticaInvalida2 :: String -> String -> IO ()
@@ -229,8 +229,8 @@ imprimirExito mensaje = do putStrLn $ prefix ++ mensaje ++ suffix
     suffix = "\ESC[0m"
 
 {- 
-  prediccionCriticaInvalida/1
-  Recibe una prediccion e imprime un mensaje indicando que es incorrecta.
+  prompt/0
+  Imprime un mensaje de espera de input por el usuario
 -}
 prompt :: IO String
 prompt = do
