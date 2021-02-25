@@ -93,8 +93,8 @@ predecir Nothing = do
 -}
 consultarPreguntaCritica :: Maybe Oraculo -> IO (Maybe Oraculo)
 consultarPreguntaCritica (Just o) = do
-  p1 <- solicitarPrediccionCritica1
-  p2 <- solicitarPrediccionCritica2
+  p1 <- solicitarPrediccionCritica "primera"
+  p2 <- solicitarPrediccionCritica "segunda"
   if p1==p2 
     then do
       imprimirPrediccionRepetida

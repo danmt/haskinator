@@ -175,7 +175,7 @@ buscarLCA pred1 pred2 oraculo = do
         let lca = maybe (Prediccion "",([],[])) id $ lca' camino1 camino2
         case fst lca of
           Pregunta preg _ -> do
-            imprimirPreguntaCritica preg pred1 pred2 lca
+            imprimirPreguntaCritica preg pred1 pred2 (fst $ snd lca) (snd $ snd lca)
           otherwise -> do
             imprimirPreguntaCritErr
     return oraculo

@@ -18,8 +18,7 @@ module IO_Helper(
   imprimirArchivoErrado,
   imprimirOpcionErrada,
   imprimirOraculoErrado,
-  solicitarPrediccionCritica1,
-  solicitarPrediccionCritica2,
+  solicitarPrediccionCritica,
   imprimirPrediccionRepetida,
   prediccionCriticaInvalida,
   prediccionCriticaInvalida2,
@@ -124,21 +123,13 @@ imprimirPregunta oraculo = do
     concatenar acumulado opcion = acumulado ++ "/" ++ opcion
 
 {- 
-  solicitarPrediccionCritica1/0
-  Solicita al usuario la primera prediccion para consulta de pregunta critica.
+  solicitarPrediccionCritica/1
+  Recibe como argumento el numero de prediccion (primera o segunda) que se le 
+  solicitara al usuario para la consulta de pregunta critica.
 -}
-solicitarPrediccionCritica1 :: IO String
-solicitarPrediccionCritica1 = do
-  putStrLn $ "\n" ++ "Ingrese la primera predicción a consultar:"
-  prompt
-
-{- 
-  solicitarPrediccionCritica2/0
-  Solicita al usuario la segunda prediccion para consulta de pregunta critica.
--}
-solicitarPrediccionCritica2 :: IO String
-solicitarPrediccionCritica2 = do
-  putStrLn $ "\n" ++ "Ingrese la segunda predicción a consultar:"
+solicitarPrediccionCritica :: String -> IO String
+solicitarPrediccionCritica nroPrediccion = do
+  putStrLn $ "\n" ++ "Ingrese la " ++ nroPrediccion ++ " predicción a consultar:"
   prompt
 
 {- 
@@ -147,7 +138,7 @@ solicitarPrediccionCritica2 = do
 -}
 prediccionCriticaInvalida :: String -> IO ()
 prediccionCriticaInvalida prediccion = do
-  putStrLn $ "Lo siento, pero \"" ++ prediccion ++"\" no es una prediccion correcta."
+  imprimirError $ "La prediccion \"" ++ prediccion ++"\" no es una prediccion correcta."
 
 {- 
   prediccionCriticaInvalida2/1
@@ -156,7 +147,7 @@ prediccionCriticaInvalida prediccion = do
 -}
 prediccionCriticaInvalida2 :: String -> String -> IO ()
 prediccionCriticaInvalida2 pred1 pred2 = do
-  putStrLn $ "Lo siento, pero las predicciones \"" ++ pred1 ++"\" y \"" ++ pred2 ++ "\" no son predicciones correctas"
+  imprimirError $ "Las predicciones \"" ++ pred1 ++"\" y \"" ++ pred2 ++ "\" no son predicciones correctas"
 
 {- 
   imprimirPrediccionRepetida/0
@@ -164,7 +155,7 @@ prediccionCriticaInvalida2 pred1 pred2 = do
 -}
 imprimirPrediccionRepetida :: IO ()
 imprimirPrediccionRepetida = do
-  putStrLn $ "Las predicciones son iguales, dime dos predicciones diferentes."
+  imprimirError "Las predicciones son iguales, dime dos predicciones diferentes."
 
 {- 
   imprimirPreguntaCritErr/0
@@ -175,15 +166,15 @@ imprimirPreguntaCritErr = do
   putStrLn "No hay pregunta que diferencie ambas predicciones."
 
 {- 
-  imprimirPreguntaCritica/4
-  Recibe una pregunta, dos predicciones y un lca, imprime la pregunta
-  crucial para ambas predicciones.
+  imprimirPreguntaCritica/5
+  Recibe una pregunta, dos predicciones y dos respuestas a la pregunta crucial, 
+  imprime la pregunta crucial para ambas predicciones con sus respectivas respuestas.
 -}
-imprimirPreguntaCritica :: String -> String -> String -> (Oraculo, ([Char], [Char])) -> IO ()
-imprimirPreguntaCritica preg pred1 pred2 lca = do
-  putStrLn $ "\nLa pregunta crucial para ambas predicciones es:\n" ++ preg
-  putStrLn $ "La respuesta para \"" ++ pred1 ++ "\" es: " ++ (fst $ snd lca)
-  putStrLn $ "La respuesta para \"" ++ pred2 ++ "\" es: " ++ (snd $ snd lca)
+imprimirPreguntaCritica :: String -> String -> String -> String -> String -> IO ()
+imprimirPreguntaCritica preg pred1 pred2 resp1 resp2 = do
+  imprimirExito $ "\nLa pregunta crucial para ambas predicciones es:\n" ++ preg ++
+    "\n" ++ "La respuesta para \"" ++ pred1 ++ "\" es: " ++ resp1 ++
+    "\n" ++ "La respuesta para \"" ++ pred2 ++ "\" es: " ++ resp2
   
 {- 
   imprimirPrediccionExitosa/0
