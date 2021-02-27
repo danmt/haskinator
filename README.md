@@ -30,30 +30,28 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 
 El programa fue diseñado teniendo en cuenta las prácticas de la programación funcional. La prioridad fue hacer un programa declarativo que con pura composición de funciones fuese capaz de realizar las predicciones.
 
-Cuenta con 4 módulos:
+Cuenta con 2 módulos:
 
 - Haskinator.
 - Oraculo.
-- Predicciones.
-- IO Helper.
 
 ### Haskinator
 
 Es el archivo principal del programa, cuenta con un main bastante simple que aplica la función menu que la podriamos ver como un while(condicion). Donde la condicion es que el valor ingresado por el usuario sea diferente a la opcion de salida (6). El metodo menu, por medio de un _case of_ aplica la función correspondiente a la opcion provista por el usuario (crear, cargar, predecir, etc...).
 
-### Oraculo
+Cada función realizada por el programa se encuentra en este módulo, podríamos decir que este se encuentra dividido en 3 partes principales:
 
-Es el módulo encargado de definir los tipos de Oraculos, además de ofrecer una serie de metodos para facilitar su manipulación.
+- Interacciones con el menu.
+- Operaciones de entrada y salida.
+- Manejo de predicciones y pregunta crucial.
 
-### Predicciones
-
-El módulo de predicciones es un modulo adicional, creado con la intencion de encapsular todos los metodos relacionados a la predicción. Realizar una predicción es algo complejo y que no tiene relacion directa con el main, por lo que nos parecio una brillante idea mover toda la _logica de negocio_ a un archivo separado.
-
-### IO Helper
-
-Para limitar las interacciones con el mecanismo IO de Haskell, creamos un modulo responsable de hacer todas los read/write del sistema, de esta manera pudimos tener una implementacion mas limpia y clara en el resto de los modulos.
+En principio, la intención era crear dos módulos adicionales: uno para operaciones de entrada y salida, y uno para manejo de predicciones y pregunta crucial. A solicitud de los profesores, todos los metodos fueron incluidos acá en lugar de crear más módulos.
 
 Cabe destacar que cada función cuenta con un encabezado de comentario que indica la aridad de la función y una breve descripción de su responsabilidad.
+
+### Oráculo
+
+Es el módulo encargado de definir los tipos de Oraculos, además de ofrecer una serie de metodos para facilitar su manipulación. Cada método sigue con exactitud las indicaciones del enunciado.
 
 ## Autores ✒️
 
